@@ -118,6 +118,8 @@ class AuthManager implements FactoryContract
      * @param  array  $config
      * @return \Illuminate\Auth\SessionGuard
      */
+     
+     
     public function createSessionDriver($name, $config)
     {
         $provider = $this->createUserProvider($config['provider'] ?? null);

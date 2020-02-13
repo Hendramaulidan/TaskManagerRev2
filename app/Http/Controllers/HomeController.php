@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Column;
 
 class HomeController extends Controller
 {
@@ -12,56 +14,43 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
+    public function history()
+    {
+        $histori = DB::table('tasks')->where('user_id',Auth::user()->id)->get();
+        return view('history',['history'=>$histori]);
+    }
+        
     public function index()
     {
-        $username = Auth::user()->name;
-        $task = DB::table('task')->where('name_user',$username)->where('status','mulai')->get();
-        $task2 = DB::table('task')->where('name_user',$username)->where('status','In Progress')->get();
-        $task3 = DB::table('task')->where('name_user',$username)->where('status','Finish')->get();
-       return view('home',['task2' => $task2, 'task' => $task,'task3'=> $task3]);
+        $use = DB::table('columns')->get()->where('user_id',Auth::user()->id);
+        return view('first',compact('use'));
+        
     }
-    public function newTask()
+        function status($id)
     {
-        return view('newTask');
+        $item = Column::find($id);
+        return  view('home',compact('item'));
     }
-    public function actionNewTask(Request $request)
+    public function newParent(Request $request)
     {
-        DB::table('task')->insert([
-            'name_task' => $request->namaTask,
-            'kegiatan' => $request->kegiatan,
-            'status'    => $request->status,
-            'name_user' => Auth::user()->name,
+        DB::table('columns')->insert([
+            'status'=>$request->input('parentTask'),
+            'email'=>$request->input('email'),
+            'user_id' => Auth::user()->id
         ]);
-        DB::table('history')->insert([
-            'name_task' => $request->namaTask,
-            'kegiatan' => $request->kegiatan,
-            'id' => Auth::user()->id,
-        ]);
-        return redirect('/home');
+        return redirect('home');
     }
-    public function inProgress( Request $request , $id)
+    public function newTask(Request $request,$id)
     {
-        $progress = DB::table('task')->where('id_task',$id)->update([
-            'waktu' => Carbon::now(),
-            'status'    => $request->status,
-            
+        DB::table('tasks')->insert([
+            'name_task'=>$request->input('nameTask'),
+            'kegiatan'=>$request->input('Activity'),
+            'column_id'=>$request->input('id_col'),
+            'user_id' => Auth::user()->id
         ]);
-        return redirect('/home');
+        return redirect('home/'.$id);
     }
     
-    public function finish( Request $request , $it)
-    {
-        $progress = DB::table('task')->where('id_task',$it)->update([
-            'waktu' => Carbon::now(),
-            'status'    => $request->status,
-            
-        ]);
-        return redirect('/home');
-    }public function delete($is)
-    {
-        DB::table('task')->where('id_task',$is)->delete();
-        return redirect('/home');
-    }
-    
+       
 }

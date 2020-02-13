@@ -8,9 +8,14 @@
         <title>Task Manager</title>
 
         <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo e(url('/assets/css/bootstrap.min.css')); ?>">
+    <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
 
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 
     </head>
     <body class="bg-dark">
@@ -83,29 +88,7 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-<!-- Section1 -->
-
-
-
     <script src="https://code.jquery.com/jquery-3.4.1.js"integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
-    <script src="<?php echo e(url('assets/js/bootstrap.min.js')); ?>"></script>
     </body>
 </html>
 <?php /**PATH D:\xampp\htdocs\TaskManager\resources\views/welcome.blade.php ENDPATH**/ ?>
