@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
-
 <div class="accordion" id="accordionExample">
-
     @foreach($kolom as $kol)
   <div class="card">
     <div class="card-header" id="headingOne">
@@ -22,7 +19,6 @@
     </div>
   </div>
 @endforeach
-
 </div>
 
 @endsection

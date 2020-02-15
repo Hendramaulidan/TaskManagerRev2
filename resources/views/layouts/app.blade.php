@@ -17,6 +17,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script>
     
 </head>
 <body>
@@ -24,7 +25,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Task Manager
+                    <i class="fas fa-tasks"></i>&nbsp;&nbsp;Task Manager
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -53,14 +54,21 @@
                             <li class="nav-item active">
                                 <a href="{{url('/home')}}"class="nav-link">Home</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="{{url('/home/process')}}"class="nav-link">Process Task</a>
+                            </li>
                             <li class="nav-item">
                                 <a href="{{url('/home/history')}}"class="nav-link">My History</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{url('home/kalender')}}"class="nav-link">Calender</a>
-                            </li>
-                                    <a class="nav-link  " href="{{ route('logout') }}"
+                                <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle active" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -69,9 +77,8 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                            </li>
-                            <li class="nav-item">
-                                <div class="nav-link active">Hai {{Auth::user()->name}} </div>
+                                    
+                                </div>
                             </li>
                         @endguest
                     </ul>

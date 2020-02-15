@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Column;
+use App\TaskModel;
+use App\Status;
 
 class HomeController extends Controller
 {
@@ -17,8 +19,14 @@ class HomeController extends Controller
     
     public function history()
     {
-        $histori = DB::table('tasks')->where('user_id',Auth::user()->id)->get();
+        $histori = TaskModel::where('user_id',Auth::user()->id)->get();
         return view('history',['history'=>$histori]);
+    }
+    public function hisDel($id)
+    {
+        $column = DB::table('tasks')->where('id',$id);
+        $column->delete();
+        return redirect('/home/history');
     }
         
     public function index()
@@ -34,10 +42,19 @@ class HomeController extends Controller
     }
     public function newParent(Request $request)
     {
-        DB::table('columns')->insert([
+        Status::insert([
             'status'=>$request->input('parentTask'),
             'email'=>$request->input('email'),
             'user_id' => Auth::user()->id
+        ]);
+        return redirect('home');
+    }
+    public function editParent(Request $request,$id)
+    {
+        $status = Status::find($id);
+        $status->update([
+            'status'=> $request->input('status'),
+            'email'=> $request->input('email'),
         ]);
         return redirect('home');
     }
@@ -51,6 +68,10 @@ class HomeController extends Controller
         ]);
         return redirect('home/'.$id);
     }
-    
-       
+    public function parDel($id)
+    {
+        $column = Status::find($id);
+        $column->delete();
+        return redirect('/home');
+    }
 }

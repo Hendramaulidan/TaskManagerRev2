@@ -9,7 +9,7 @@ class TaskModel extends Model
 {
     use SoftDeletes;
     protected $table = 'tasks';
-    protected $fillable = ['namaTask','kegiatan'];
+    protected $fillable = ['name_task','kegiatan'];
     protected $dates = ['deleted_at'];
     
 }

@@ -9,7 +9,7 @@
 				<th>Task Name</th>
 				<th>My Activity</th>
 				<th>Created At</th>
-				
+				<th></th>
 			</tr>
 		</thead>	
 		<tbody>
@@ -19,7 +19,7 @@
 						<td >{{$histo->name_task}}</td>
 						<td>{{$histo->kegiatan}}</td>		
 						<td class="alert alert-primary">{{$histo->created_at}}</td>
-				
+						<td><a href="/home/history/{{$histo->id}}"class="text-danger"><i class="fas fa-trash"></i></a></td>
 			</tr>
 			@endforeach
 			
